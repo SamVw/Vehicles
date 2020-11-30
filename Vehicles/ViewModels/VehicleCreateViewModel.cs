@@ -15,8 +15,8 @@ namespace Vehicles.ViewModels
         public string Model { get; set; }
         [Required]
         public string Vin { get; set; }
-        public int Type { get; set; }
-        public int Color { get; set; }
+        public VehicleTypeEnum Type { get; set; }
+        public ColorEnum Color { get; set; }
 
         public Vehicle ToModel()
         {
@@ -25,8 +25,8 @@ namespace Vehicles.ViewModels
                 Make = this.Make,
                 Model = this.Model,
                 VIN = this.Vin,
-                Type = (VehicleTypeEnum)this.Type,
-                Color = (ColorEnum)this.Color
+                Type = this.Type,
+                Color = this.Color
             };
         }
     }
