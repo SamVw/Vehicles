@@ -11,5 +11,7 @@ namespace Vehicles.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+        [HttpGet]
+        public void Test() { }
     }
 }
