@@ -29,9 +29,28 @@ namespace Vehicles.Controllers
         public Vehicle GetById(int id) => _vehicleRepository.Get(id);
 
         [HttpPost]
-        public void Post(VehicleCreateViewModel vehicle)
+        public void Add(VehicleCreateViewModel vehicle)
         {
             _vehicleRepository.Add(vehicle.ToModel());
+        }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public void Update(int id, [FromBody] VehicleUpdateViewModel updates)
+        {
+            var vehicle =_vehicleRepository.Get(id);
+
+            if (updates.Vin != null)
+            {
+                vehicle.VIN = updates.Vin;
+            }
+
+            if (updates.Color != null)
+            {
+                vehicle.Color = (ColorEnum)updates.Color;
+            }
+
+            _vehicleRepository.Update(vehicle);
         }
     }
 }
