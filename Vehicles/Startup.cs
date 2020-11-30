@@ -34,7 +34,7 @@ namespace Vehicles
 
             services.AddSwaggerGen();
 
-            services.AddScoped<IVehicleRepository, EfVehicleRepository>();
+            services.AddScoped<IVehicleRepository, AdoNetVehicleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

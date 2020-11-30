@@ -34,7 +34,37 @@ namespace Vehicles.Services
 
         public Vehicle Get(int id)
         {
-            throw new NotImplementedException();
+            Vehicle vehicle = new Vehicle();
+            using (var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conn.Open();
+
+                var sql = "SELECT * FROM Vehicles WHERE Id = @Id;";
+
+                using (var command = new SqlCommand(sql, conn))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    var reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        vehicle = new Vehicle
+                        {
+                            Id = (int)reader["Id"],
+                            Make = (string)reader["Make"],
+                            Model = (string)reader["Model"],
+                            VIN = (string)reader["VIN"],
+                            Type = (VehicleTypeEnum)reader["Type"],
+                            Color = (ColorEnum)reader["Color"]
+                        };
+                    } else
+                    {
+                        return null;
+                    }
+                }
+            }
+
+            return vehicle;
         }
 
         public IEnumerable<Vehicle> GetAll()
