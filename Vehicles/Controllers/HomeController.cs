@@ -26,19 +26,28 @@ namespace Vehicles.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        public Vehicle GetById(int id) => _vehicleRepository.Get(id);
+        public ActionResult<Vehicle> GetById(int id) 
+        {
+            var vehicle = _vehicleRepository.Get(id);
+            if (vehicle == null) return new NotFoundResult();
+
+            return new OkObjectResult(vehicle);
+        }
 
         [HttpPost]
-        public void Add(VehicleCreateViewModel vehicle)
+        public ActionResult Add(VehicleCreateViewModel vehicle)
         {
             _vehicleRepository.Add(vehicle.ToModel());
+
+            return Ok();
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public void Update(int id, [FromBody] VehicleUpdateViewModel updates)
+        public ActionResult Update(int id, [FromBody] VehicleUpdateViewModel updates)
         {
             var vehicle =_vehicleRepository.Get(id);
+            if (vehicle == null) return new NotFoundResult();
 
             if (updates.Vin != null)
             {
@@ -51,6 +60,8 @@ namespace Vehicles.Controllers
             }
 
             _vehicleRepository.Update(vehicle);
+
+            return Ok();
         }
 
         [HttpDelete]
@@ -58,10 +69,7 @@ namespace Vehicles.Controllers
         public ActionResult Delete(int id)
         {
             var vehicle = _vehicleRepository.Get(id);
-            if (vehicle == null)
-            {
-                return new NotFoundResult();
-            }
+            if (vehicle == null) return new NotFoundResult();
 
             _vehicleRepository.Delete(vehicle);
             return Ok();
