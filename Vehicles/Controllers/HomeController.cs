@@ -22,10 +22,11 @@ namespace Vehicles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Vehicle> GetAll() 
-        {
-            return _vehicleRepository.GetAll();
-        }
+        public IEnumerable<Vehicle> GetAll() => _vehicleRepository.GetAll();
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public Vehicle GetById(int id) => _vehicleRepository.Get(id);
 
         [HttpPost]
         public void Post(VehicleCreateViewModel vehicle)
