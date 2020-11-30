@@ -52,5 +52,19 @@ namespace Vehicles.Controllers
 
             _vehicleRepository.Update(vehicle);
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var vehicle = _vehicleRepository.Get(id);
+            if (vehicle == null)
+            {
+                return new NotFoundResult();
+            }
+
+            _vehicleRepository.Delete(vehicle);
+            return Ok();
+        }
     }
 }
