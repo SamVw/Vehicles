@@ -7,7 +7,7 @@ using Vehicles.Models;
 
 namespace Vehicles.ViewModels
 {
-    public class PostVehicleVM
+    public class VehicleCreateViewModel
     {
         [Required]
         public string Make { get; set; }

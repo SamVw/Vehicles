@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicles.Models;
 using Vehicles.Services;
 using Vehicles.ViewModels;
 
@@ -21,10 +22,13 @@ namespace Vehicles.Controllers
         }
 
         [HttpGet]
-        public void Test() { }
+        public IEnumerable<Vehicle> GetAll() 
+        {
+            return _vehicleRepository.GetAll();
+        }
 
         [HttpPost]
-        public void Post(PostVehicleVM vehicle)
+        public void Post(VehicleCreateViewModel vehicle)
         {
             _vehicleRepository.Add(vehicle.ToModel());
         }
