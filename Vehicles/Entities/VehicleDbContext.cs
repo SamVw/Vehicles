@@ -11,6 +11,11 @@ namespace Vehicles.Entities
     {
         public virtual DbSet<Vehicle> Vehicles { get; set; }
 
+        public VehicleDbContext(DbContextOptions<VehicleDbContext> options)
+        : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
